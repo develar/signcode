@@ -61,7 +61,7 @@ function spawnSign (options, outputPath, callback) {
   var isWin = process.platform === 'win32'
   var args = isWin ? [
     'sign',
-    options.nest ? '/tr' : '/t', options.nest ? "http://timestamp.comodoca.com/rfc3161" : timestampingServiceUrl
+    options.nest || options.hash == 'sha256' ? '/tr' : '/t', options.nest || options.hash == 'sha256' ? "http://timestamp.comodoca.com/rfc3161" : timestampingServiceUrl
   ] : [
     '-in', options.path,
     '-out', outputPath,
@@ -123,7 +123,8 @@ function spawnSign (options, outputPath, callback) {
     spawnOptions.stdio = ['ignore', 'ignore', 'pipe']
   }
 
-  var signcode = ChildProcess.spawn(getSigncodePath(), args, spawnOptions)
+  console.log("spawning " + getSigncodePath(options) + " " + args.join(' '));
+  var signcode = ChildProcess.spawn(getSigncodePath(options), args, spawnOptions)
 
   var stderr = ''
   signcode.stderr.on('data', function (data) {
@@ -164,7 +165,7 @@ function spawnVerify (options, callback) {
     options.hash
   ]
 
-  var signcode = ChildProcess.spawn(getSigncodePath(), args)
+  var signcode = ChildProcess.spawn(getSigncodePath(options), args)
 
   var stdout = ''
   signcode.stdout.on('data', function (data) {
@@ -206,7 +207,11 @@ function getOutputPath (inputPath, hash) {
   return path.join(path.dirname(inputPath), outputName)
 }
 
-function getSigncodePath () {
+function getSigncodePath (options) {
+  if (options.signcodePath) {
+    return options.signcodePath;
+  }
+  
   if (process.platform === 'win32') {
     return path.join(__dirname, 'vendor', 'signtool.exe')
   } else {
