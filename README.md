@@ -51,6 +51,7 @@ signcode.sign(options, function (error) {
 | `password`     | `String`  | No       | Password to the certificate or key. |
 | `passwordPath` | `String`  | No       | Path to a file containing the password for the certificate or key. |
 | `site`         | `String`  | No       | Website URL to include in the signature. |
+| `signcodePath` | `String`  | No       | path to tool used for signing. Default to bundled tool. |
 
 ## Command Line
 
