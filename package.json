@@ -1,7 +1,7 @@
 {
   "name": "signcode-tf",
   "version": "0.7.4",
-  "description": "Sign Windows executables from a Mac",
+  "description": "Sign Windows executables from a Windows or MacOS",
   "repository": "https://github.com/develar/signcode",
   "main": "index.js",
   "scripts": {
