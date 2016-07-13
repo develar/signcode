@@ -1,8 +1,8 @@
 {
   "name": "signcode-tf",
-  "version": "0.7.3",
+  "version": "0.7.4",
   "description": "Sign Windows executables from a Mac",
-  "repository": "https://github.com/kevinsawicki/signcode",
+  "repository": "https://github.com/develar/signcode",
   "main": "index.js",
   "scripts": {
     "test": "mocha && standard"
